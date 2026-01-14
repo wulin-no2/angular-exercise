@@ -1,3 +1,4 @@
+import { NewTaskData } from './task/task.model';
 import { Component, EventEmitter, Input, Output } from '@angular/core';
 import { TaskComponent } from './task/task.component';
 import { dummyTasks } from '../dummy-tasks';
@@ -29,5 +30,15 @@ export class TasksComponent {
   }
   closeNewTask() {
     this.isAddingTask = false;
-    }
+  }
+  onCreateTask(taskData: NewTaskData) {
+    this.tasks.unshift({
+      id: new Date().getTime().toString(),
+      userId: this.userId,
+      title: taskData.title,
+      summary: taskData.summary,
+      dueDate: taskData.dueDate
+    });
+    this.isAddingTask = false;
+  }
 }
