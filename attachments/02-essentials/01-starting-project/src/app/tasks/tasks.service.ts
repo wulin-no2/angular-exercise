@@ -30,6 +30,12 @@ export class TasksService {
       dueDate: '2024-06-15',
     },
   ]
+  constructor() {
+    const tasks = localStorage.getItem('tasks');
+    if(tasks){
+      this.tasks = JSON.parse(tasks);
+    }
+  }
   getTasks() {
     return this.tasks;
   }
@@ -38,6 +44,7 @@ export class TasksService {
   }
   removingTask(id: string){
     this.tasks = this.tasks.filter((task)=>task.id !== id);
+    this.saveTasks();
   }
   addNewTask(newTaskData: NewTaskData, userId: string){
     this.tasks.unshift({
@@ -47,6 +54,10 @@ export class TasksService {
       title: newTaskData.title,
       dueDate: newTaskData.dueDate
     })
+    this.saveTasks();
+  }
+  private saveTasks(){
+    localStorage.setItem('tasks', JSON.stringify(this.tasks));
   }
 
 }
