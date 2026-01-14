@@ -19,9 +19,6 @@ export class TasksComponent {
   constructor(private tasksService: TasksService) {}
   tasks = this.tasksService.getTasks();
 
-  onCompleteTask(id: string) {
-    this.tasksService.removingTask(id);
-  }
   get selectedUserTasks() {
     return this.tasksService.getSelectedUserTasks(this.userId);
   }
